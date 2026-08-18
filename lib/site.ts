@@ -32,12 +32,12 @@ export const SITE = {
   shortName: "RUCA",
   tagline:
     "One of the essential things in life is a roof over your head — so make it perfect.",
-  phoneDisplay: "720-927-6697",
+  phoneDisplay: "(720) 355-3133",
   /**
    * Swap NEXT_PUBLIC_PHONE_HREF for a CallRail (or similar) tracking number
    * without changing any component code.
    */
-  phoneHref: process.env.NEXT_PUBLIC_PHONE_HREF?.trim() || "tel:+17209276697",
+  phoneHref: process.env.NEXT_PUBLIC_PHONE_HREF?.trim() || "tel:+17203553133",
   url: resolveSiteUrl(),
   existingSite: "https://www.rucaconsulting.com/",
   serviceAreaLabel: "Denver and surrounding areas",
