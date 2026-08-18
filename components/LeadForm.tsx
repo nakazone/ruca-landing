@@ -96,7 +96,7 @@ export function InspectionForm({
   }
 
   const cardClass = isHero
-    ? "rounded-2xl bg-white p-5 text-ink shadow-xl sm:p-6"
+    ? "flex h-full flex-col rounded-2xl bg-white p-4 text-ink shadow-xl sm:p-5"
     : "rounded-2xl border border-line bg-white p-6 shadow-sm sm:p-8";
 
   if (success) {
@@ -127,14 +127,13 @@ export function InspectionForm({
       aria-labelledby={isHero ? "hero-form-heading" : undefined}
     >
       {isHero ? (
-        <div className="mb-4">
+        <div className="mb-3">
           <p className="text-xs font-medium uppercase tracking-[0.16em] text-brand-dark">
             Free inspection
           </p>
-          <h2 id="hero-form-heading" className="mt-1 text-xl font-bold text-ink sm:text-2xl">
+          <h2 id="hero-form-heading" className="mt-1 text-lg font-bold text-ink sm:text-xl">
             Request your free inspection
           </h2>
-          <p className="mt-1 text-sm text-muted">Often same-day. No cost to you.</p>
         </div>
       ) : null}
 
@@ -150,7 +149,7 @@ export function InspectionForm({
         </p>
       ) : null}
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className={`grid sm:grid-cols-2 ${isHero ? "gap-2.5" : "gap-3"}`}>
         <div className="sm:col-span-2">
           <Field
             id={fieldId("homeownerName")}
@@ -380,7 +379,7 @@ export function InspectionForm({
               id={fieldId("damageDescription")}
               name="damageDescription"
               rows={isHero ? 2 : 4}
-              className={`input resize-y ${isHero ? "min-h-[4.5rem]" : "min-h-[6.5rem]"}`}
+              className={`input resize-y ${isHero ? "min-h-[3.5rem]" : "min-h-[6.5rem]"}`}
               value={values.damageDescription}
               onChange={(e) => setField("damageDescription", e.target.value)}
             />
@@ -388,7 +387,7 @@ export function InspectionForm({
         </div>
       </div>
 
-      <div className="mt-4">
+      <div className={isHero ? "mt-auto pt-4" : "mt-4"}>
         <label className="flex items-start gap-3 text-xs leading-relaxed text-ink sm:text-sm">
           <input
             id={fieldId("consent")}
@@ -410,15 +409,15 @@ export function InspectionForm({
             {errors.consent}
           </p>
         ) : null}
-      </div>
 
-      <button
-        type="submit"
-        className="btn-primary mt-5 min-h-12 w-full disabled:opacity-70"
-        disabled={pending}
-      >
-        {pending ? "Sending…" : "Request My Free Inspection"}
-      </button>
+        <button
+          type="submit"
+          className={`btn-primary w-full disabled:opacity-70 ${isHero ? "mt-3 min-h-11" : "mt-5 min-h-12"}`}
+          disabled={pending}
+        >
+          {pending ? "Sending…" : "Request My Free Inspection"}
+        </button>
+      </div>
     </form>
   );
 }
