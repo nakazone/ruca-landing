@@ -96,7 +96,7 @@ export function InspectionForm({
   }
 
   const cardClass = isHero
-    ? "flex h-full flex-col rounded-2xl bg-white p-4 text-ink shadow-xl sm:p-5"
+    ? "hero-form rounded-2xl bg-white p-3.5 text-ink shadow-xl sm:p-4"
     : "rounded-2xl border border-line bg-white p-6 shadow-sm sm:p-8";
 
   if (success) {
@@ -127,14 +127,9 @@ export function InspectionForm({
       aria-labelledby={isHero ? "hero-form-heading" : undefined}
     >
       {isHero ? (
-        <div className="mb-3">
-          <p className="text-xs font-medium uppercase tracking-[0.16em] text-brand-dark">
-            Free inspection
-          </p>
-          <h2 id="hero-form-heading" className="mt-1 text-lg font-bold text-ink sm:text-xl">
-            Request your free inspection
-          </h2>
-        </div>
+        <h2 id="hero-form-heading" className="mb-2.5 text-base font-bold text-ink">
+          Request a free inspection
+        </h2>
       ) : null}
 
       {serverError ? (
@@ -149,13 +144,14 @@ export function InspectionForm({
         </p>
       ) : null}
 
-      <div className={`grid sm:grid-cols-2 ${isHero ? "gap-2.5" : "gap-3"}`}>
+      <div className={`grid sm:grid-cols-2 ${isHero ? "gap-2" : "gap-3"}`}>
         <div className="sm:col-span-2">
           <Field
             id={fieldId("homeownerName")}
             errorId={errorId("homeownerName")}
             label="Homeowner name"
             required
+            compact={isHero}
             error={errors.homeownerName}
           >
             <input
@@ -177,6 +173,7 @@ export function InspectionForm({
             errorId={errorId("address")}
             label="Address"
             required
+            compact={isHero}
             error={errors.address}
           >
             <input
@@ -197,6 +194,7 @@ export function InspectionForm({
           errorId={errorId("phone")}
           label="Phone"
           required
+          compact={isHero}
           error={errors.phone}
         >
           <input
@@ -217,6 +215,7 @@ export function InspectionForm({
           errorId={errorId("email")}
           label="Email"
           required
+          compact={isHero}
           error={errors.email}
         >
           <input
@@ -238,6 +237,7 @@ export function InspectionForm({
             errorId={errorId("roofType")}
             label="Type of roof"
             required
+            compact={isHero}
             error={errors.roofType}
           >
             <select
@@ -373,13 +373,14 @@ export function InspectionForm({
             id={fieldId("damageDescription")}
             errorId={errorId("damageDescription")}
             label="Brief description of damage"
+            compact={isHero}
             error={errors.damageDescription}
           >
             <textarea
               id={fieldId("damageDescription")}
               name="damageDescription"
-              rows={isHero ? 2 : 4}
-              className={`input resize-y ${isHero ? "min-h-[3.5rem]" : "min-h-[6.5rem]"}`}
+              rows={isHero ? 1 : 4}
+              className={`input resize-y ${isHero ? "min-h-[2.5rem]" : "min-h-[6.5rem]"}`}
               value={values.damageDescription}
               onChange={(e) => setField("damageDescription", e.target.value)}
             />
@@ -387,8 +388,8 @@ export function InspectionForm({
         </div>
       </div>
 
-      <div className={isHero ? "mt-auto pt-4" : "mt-4"}>
-        <label className="flex items-start gap-3 text-xs leading-relaxed text-ink sm:text-sm">
+      <div className={isHero ? "mt-2.5" : "mt-4"}>
+        <label className={`flex items-start gap-2 text-ink ${isHero ? "text-[11px] leading-snug" : "text-xs leading-relaxed sm:text-sm"}`}>
           <input
             id={fieldId("consent")}
             name="consent"
@@ -412,7 +413,7 @@ export function InspectionForm({
 
         <button
           type="submit"
-          className={`btn-primary w-full disabled:opacity-70 ${isHero ? "mt-3 min-h-11" : "mt-5 min-h-12"}`}
+          className={`btn-primary w-full disabled:opacity-70 ${isHero ? "mt-2.5 min-h-10 text-sm" : "mt-5 min-h-12"}`}
           disabled={pending}
         >
           {pending ? "Sending…" : "Request My Free Inspection"}
@@ -480,6 +481,7 @@ function Field({
   label,
   required,
   error,
+  compact,
   children,
 }: {
   id: string;
@@ -487,11 +489,15 @@ function Field({
   label: string;
   required?: boolean;
   error?: string;
+  compact?: boolean;
   children: ReactNode;
 }) {
   return (
     <div>
-      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-ink">
+      <label
+        htmlFor={id}
+        className={`block font-medium text-ink ${compact ? "mb-1 text-xs" : "mb-1.5 text-sm"}`}
+      >
         {label}
         {required ? (
           <span className="text-red-800">

@@ -35,42 +35,38 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/65 to-header" />
       </div>
 
-      <div className="container-page grid flex-1 items-center gap-8 pb-8 pt-[calc(var(--header-h)+1.25rem)] sm:gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(26rem,32rem)] lg:items-stretch lg:pb-10">
-        <div className="flex flex-col justify-center lg:min-h-full lg:justify-between lg:py-2">
-          <div>
-            <p className="text-sm font-medium uppercase tracking-[0.2em] text-brand-light">
-              Insurance claim roof repair · {SITE.serviceAreaLabel}
-            </p>
-            <h1
-              id="hero-heading"
-              className="mt-4 max-w-3xl text-balance text-4xl font-bold leading-[1.12] tracking-tight sm:text-5xl lg:text-[2.85rem] xl:text-[3.15rem]"
-            >
-              We’ll get your roof fixed — and deal with the insurance company for you.
-            </h1>
-            <p className="mt-5 max-w-xl text-pretty text-lg leading-relaxed text-white/90">
-              Hail season in Colorado’s Hail Alley is not a maybe — it’s{" "}
-              <strong className="font-semibold text-white">
-                {SITE.hailAlleyStormsPerYear} storms a year
-              </strong>
-              . Homeowners in Lakewood, Aurora, and Littleton get a{" "}
-              <strong className="font-semibold text-white">free, often same-day inspection</strong>
-              , an honest estimate, and a team that works directly with your adjuster.
-            </p>
-          </div>
-
-          <div className="mt-8 lg:mt-10">
-            <PhoneLink location="hero" className="btn-primary min-h-12 px-6 text-lg">
-              <Phone className="h-5 w-5" aria-hidden="true" />
+      <div className="container-page grid flex-1 items-center gap-6 pb-6 pt-[calc(var(--header-h)+1rem)] lg:grid-cols-[minmax(0,1fr)_minmax(22rem,26rem)] lg:gap-8 lg:pb-8">
+        <div className="max-w-xl">
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-brand-light sm:text-sm">
+            Insurance claim roof repair · {SITE.serviceAreaLabel}
+          </p>
+          <h1
+            id="hero-heading"
+            className="mt-3 text-balance text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl lg:text-[2.4rem]"
+          >
+            We’ll get your roof fixed — and deal with the insurance company for you.
+          </h1>
+          <p className="mt-3 text-pretty text-base leading-relaxed text-white/90">
+            Colorado’s Hail Alley sees{" "}
+            <strong className="font-semibold text-white">
+              {SITE.hailAlleyStormsPerYear} storms a year
+            </strong>
+            . Get a{" "}
+            <strong className="font-semibold text-white">free, often same-day inspection</strong>
+            {" "}in Lakewood, Aurora, and Littleton — we work directly with your adjuster.
+          </p>
+          <div className="mt-5">
+            <PhoneLink location="hero" className="btn-primary min-h-11 px-5">
+              <Phone className="h-4 w-4" aria-hidden="true" />
               Call {SITE.phoneDisplay}
             </PhoneLink>
-            <p className="mt-4 text-sm text-white/75">
-              No cost to you for the inspection. We handle the insurance company so you don’t
-              have to.
+            <p className="mt-2 text-sm text-white/75">
+              No cost to you. We handle the insurance company so you don’t have to.
             </p>
           </div>
         </div>
 
-        <div id="inspect" className="section-anchor flex w-full lg:h-full">
+        <div id="inspect" className="section-anchor w-full">
           <InspectionForm variant="hero" location="hero_form" />
         </div>
       </div>
