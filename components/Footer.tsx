@@ -25,7 +25,7 @@ export function Footer() {
 
         <div>
           <h2 className="text-sm font-semibold uppercase tracking-wider text-white/60">
-            Call or visit
+            Call
           </h2>
           <PhoneLink
             location="footer"
@@ -37,10 +37,6 @@ export function Footer() {
           <p className="mt-3 text-sm text-white/75">
             Serving {SITE.serviceAreaLabel}.
           </p>
-          <p className="mt-2 text-sm text-white/50">
-            Mailing address: [Add street address], [Add city], CO [Add ZIP]
-          </p>
-          <p className="text-sm text-white/50">Email: [Add business email]</p>
         </div>
 
         <div>
