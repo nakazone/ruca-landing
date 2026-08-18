@@ -4,7 +4,6 @@
  *
  * OPEN ITEMS for the client (not published on rucaconsulting.com as of 2026-08-18):
  * - Physical mailing address
- * - Business email
  * - License / registration number
  * - Attributed Google / Facebook / Yelp reviews
  * - Official SVG logo + confirmation of brand hex values
@@ -64,8 +63,7 @@ export const SITE = {
     postalCode: "",
     country: "US",
   },
-  /** OPEN ITEM */
-  email: "",
+  email: "contact@rucaconsulting.com",
   /** OPEN ITEM — e.g. [Add license #] */
   license: "",
 } as const;

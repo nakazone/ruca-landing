@@ -7,6 +7,7 @@ export function JsonLd() {
     name: SITE.name,
     url: SITE.url,
     telephone: SITE.phoneHref.replace("tel:", ""),
+    email: SITE.email,
     image: `${SITE.url}/logo-white.png`,
     description:
       "Roofing contractor serving Denver and surrounding areas. Free storm and hail damage inspections, insurance-claim support, and code-compliant repairs across the Denver metro.",

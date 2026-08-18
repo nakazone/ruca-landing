@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { PhoneLink } from "@/components/PhoneLink";
 import { SITE } from "@/lib/site";
 
@@ -34,6 +34,13 @@ export function Footer() {
             <Phone className="h-4 w-4" aria-hidden="true" />
             {SITE.phoneDisplay}
           </PhoneLink>
+          <a
+            href={`mailto:${SITE.email}`}
+            className="mt-2 flex items-center gap-2 text-sm font-medium text-white/85 hover:text-brand-light"
+          >
+            <Mail className="h-4 w-4" aria-hidden="true" />
+            {SITE.email}
+          </a>
           <p className="mt-3 text-sm text-white/75">
             Serving {SITE.serviceAreaLabel}.
           </p>
