@@ -55,8 +55,9 @@ export async function POST(request: Request) {
     }
   } else if (process.env.NODE_ENV !== "production") {
     console.info("[lead] captured (set LEAD_WEBHOOK_URL to deliver)", {
-      preferredContact: lead.preferredContact,
-      hasAddress: Boolean(lead.propertyAddress),
+      formVariant: lead.formVariant,
+      roofType: lead.roofType,
+      hasAddress: Boolean(lead.address),
     });
   }
 

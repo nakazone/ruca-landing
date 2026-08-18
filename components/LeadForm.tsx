@@ -5,31 +5,24 @@ import { CheckCircle2, Phone } from "lucide-react";
 import { PhoneLink } from "@/components/PhoneLink";
 import { trackFormSubmit } from "@/lib/analytics";
 import {
+  INSURANCE_STATUS,
   PREFERRED_CONTACT,
+  ROOF_AGES,
+  ROOF_TYPES,
+  STORY_COUNTS,
+  emptyLead,
   type FieldErrors,
+  type FormVariant,
   type LeadPayload,
   validateLead,
 } from "@/lib/lead";
 import { SITE } from "@/lib/site";
-
-const EMPTY: LeadPayload = {
-  firstName: "",
-  lastName: "",
-  phone: "",
-  email: "",
-  propertyAddress: "",
-  preferredContact: "call",
-  damageDescription: "",
-  consent: false,
-};
 
 const CONTACT_LABEL: Record<(typeof PREFERRED_CONTACT)[number], string> = {
   call: "Call",
   text: "Text",
   email: "Email",
 };
-
-type FormVariant = "hero" | "section";
 
 export function InspectionForm({
   variant = "section",
@@ -39,7 +32,7 @@ export function InspectionForm({
   location: string;
 }) {
   const formId = useId();
-  const [values, setValues] = useState<LeadPayload>(EMPTY);
+  const [values, setValues] = useState<LeadPayload>(() => emptyLead(variant));
   const [errors, setErrors] = useState<FieldErrors>({});
   const [serverError, setServerError] = useState("");
   const [pending, setPending] = useState(false);
@@ -54,11 +47,15 @@ export function InspectionForm({
     return `${formId}-${name}-error`;
   }
 
+  function setField<K extends keyof LeadPayload>(name: K, value: LeadPayload[K]) {
+    setValues((current) => ({ ...current, [name]: value }));
+  }
+
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setServerError("");
 
-    const result = validateLead(values);
+    const result = validateLead({ ...values, formVariant: variant });
     if ("errors" in result) {
       setErrors(result.errors);
       trackFormSubmit("error");
@@ -100,7 +97,7 @@ export function InspectionForm({
 
   const cardClass = isHero
     ? "rounded-2xl bg-white p-5 text-ink shadow-xl sm:p-6"
-    : "rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-8";
+    : "rounded-2xl border border-line bg-white p-6 shadow-sm sm:p-8";
 
   if (success) {
     return (
@@ -154,42 +151,48 @@ export function InspectionForm({
       ) : null}
 
       <div className="grid gap-3 sm:grid-cols-2">
-        <Field
-          id={fieldId("firstName")}
-          errorId={errorId("firstName")}
-          label="First name"
-          required
-          error={errors.firstName}
-        >
-          <input
-            id={fieldId("firstName")}
-            name="firstName"
-            autoComplete="given-name"
-            className="input"
-            value={values.firstName}
-            aria-invalid={errors.firstName ? true : undefined}
-            aria-describedby={errors.firstName ? errorId("firstName") : undefined}
-            onChange={(e) => setValues((v) => ({ ...v, firstName: e.target.value }))}
-          />
-        </Field>
-        <Field
-          id={fieldId("lastName")}
-          errorId={errorId("lastName")}
-          label="Last name"
-          required
-          error={errors.lastName}
-        >
-          <input
-            id={fieldId("lastName")}
-            name="lastName"
-            autoComplete="family-name"
-            className="input"
-            value={values.lastName}
-            aria-invalid={errors.lastName ? true : undefined}
-            aria-describedby={errors.lastName ? errorId("lastName") : undefined}
-            onChange={(e) => setValues((v) => ({ ...v, lastName: e.target.value }))}
-          />
-        </Field>
+        <div className="sm:col-span-2">
+          <Field
+            id={fieldId("homeownerName")}
+            errorId={errorId("homeownerName")}
+            label="Homeowner name"
+            required
+            error={errors.homeownerName}
+          >
+            <input
+              id={fieldId("homeownerName")}
+              name="homeownerName"
+              autoComplete="name"
+              className="input"
+              value={values.homeownerName}
+              aria-invalid={errors.homeownerName ? true : undefined}
+              aria-describedby={errors.homeownerName ? errorId("homeownerName") : undefined}
+              onChange={(e) => setField("homeownerName", e.target.value)}
+            />
+          </Field>
+        </div>
+
+        <div className="sm:col-span-2">
+          <Field
+            id={fieldId("address")}
+            errorId={errorId("address")}
+            label="Address"
+            required
+            error={errors.address}
+          >
+            <input
+              id={fieldId("address")}
+              name="address"
+              autoComplete="street-address"
+              className="input"
+              value={values.address}
+              aria-invalid={errors.address ? true : undefined}
+              aria-describedby={errors.address ? errorId("address") : undefined}
+              onChange={(e) => setField("address", e.target.value)}
+            />
+          </Field>
+        </div>
+
         <Field
           id={fieldId("phone")}
           errorId={errorId("phone")}
@@ -206,9 +209,10 @@ export function InspectionForm({
             value={values.phone}
             aria-invalid={errors.phone ? true : undefined}
             aria-describedby={errors.phone ? errorId("phone") : undefined}
-            onChange={(e) => setValues((v) => ({ ...v, phone: e.target.value }))}
+            onChange={(e) => setField("phone", e.target.value)}
           />
         </Field>
+
         <Field
           id={fieldId("email")}
           errorId={errorId("email")}
@@ -225,69 +229,166 @@ export function InspectionForm({
             value={values.email}
             aria-invalid={errors.email ? true : undefined}
             aria-describedby={errors.email ? errorId("email") : undefined}
-            onChange={(e) => setValues((v) => ({ ...v, email: e.target.value }))}
+            onChange={(e) => setField("email", e.target.value)}
           />
         </Field>
-      </div>
 
-      <div className="mt-3">
-        <Field
-          id={fieldId("propertyAddress")}
-          errorId={errorId("propertyAddress")}
-          label="Property address"
-          error={errors.propertyAddress}
-        >
-          <input
-            id={fieldId("propertyAddress")}
-            name="propertyAddress"
-            autoComplete="street-address"
-            className="input"
-            value={values.propertyAddress}
-            onChange={(e) => setValues((v) => ({ ...v, propertyAddress: e.target.value }))}
-          />
-        </Field>
-      </div>
-
-      <fieldset className="mt-3">
-        <legend className="mb-2 text-sm font-medium text-ink">Preferred contact method</legend>
-        <div className="flex flex-wrap gap-4">
-          {PREFERRED_CONTACT.map((option) => (
-            <label key={option} className="inline-flex items-center gap-2 text-sm text-ink">
-              <input
-                type="radio"
-                name={`${formId}-preferredContact`}
-                value={option}
-                checked={values.preferredContact === option}
-                onChange={() => setValues((v) => ({ ...v, preferredContact: option }))}
-                className="h-4 w-4 accent-brand"
-              />
-              {CONTACT_LABEL[option]}
-            </label>
-          ))}
+        <div className={isHero ? "sm:col-span-2" : undefined}>
+          <Field
+            id={fieldId("roofType")}
+            errorId={errorId("roofType")}
+            label="Type of roof"
+            required
+            error={errors.roofType}
+          >
+            <select
+              id={fieldId("roofType")}
+              name="roofType"
+              className="input"
+              value={values.roofType}
+              aria-invalid={errors.roofType ? true : undefined}
+              aria-describedby={errors.roofType ? errorId("roofType") : undefined}
+              onChange={(e) => setField("roofType", e.target.value)}
+            >
+              <option value="">Select roof type</option>
+              {ROOF_TYPES.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </Field>
         </div>
-      </fieldset>
 
-      <div className="mt-3">
-        <Field
-          id={fieldId("damageDescription")}
-          errorId={errorId("damageDescription")}
-          label="Brief description of damage"
-          error={errors.damageDescription}
-        >
-          <textarea
+        {isHero ? null : (
+          <>
+            <Field
+              id={fieldId("roofAge")}
+              errorId={errorId("roofAge")}
+              label="Age of roof"
+              required
+              error={errors.roofAge}
+            >
+              <select
+                id={fieldId("roofAge")}
+                name="roofAge"
+                className="input"
+                value={values.roofAge}
+                aria-invalid={errors.roofAge ? true : undefined}
+                aria-describedby={errors.roofAge ? errorId("roofAge") : undefined}
+                onChange={(e) => setField("roofAge", e.target.value)}
+              >
+                <option value="">Select age</option>
+                {ROOF_AGES.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </Field>
+
+            <Field
+              id={fieldId("stories")}
+              errorId={errorId("stories")}
+              label="How many stories"
+              required
+              error={errors.stories}
+            >
+              <select
+                id={fieldId("stories")}
+                name="stories"
+                className="input"
+                value={values.stories}
+                aria-invalid={errors.stories ? true : undefined}
+                aria-describedby={errors.stories ? errorId("stories") : undefined}
+                onChange={(e) => setField("stories", e.target.value)}
+              >
+                <option value="">Select stories</option>
+                {STORY_COUNTS.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </Field>
+
+            <Field
+              id={fieldId("insurance")}
+              errorId={errorId("insurance")}
+              label="Insurance"
+              required
+              error={errors.insurance}
+            >
+              <select
+                id={fieldId("insurance")}
+                name="insurance"
+                className="input"
+                value={values.insurance}
+                aria-invalid={errors.insurance ? true : undefined}
+                aria-describedby={errors.insurance ? errorId("insurance") : undefined}
+                onChange={(e) => setField("insurance", e.target.value)}
+              >
+                <option value="">Select insurance status</option>
+                {INSURANCE_STATUS.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </Field>
+
+            <div className="sm:col-span-2">
+              <fieldset>
+                <legend className="mb-2 text-sm font-medium text-ink">
+                  Preferred method of contact
+                  <span className="text-red-800">
+                    {" "}
+                    *<span className="sr-only"> required</span>
+                  </span>
+                </legend>
+                <div className="flex flex-wrap gap-4">
+                  {PREFERRED_CONTACT.map((option) => (
+                    <label
+                      key={option}
+                      className="inline-flex items-center gap-2 text-sm text-ink"
+                    >
+                      <input
+                        type="radio"
+                        name={`${formId}-preferredContact`}
+                        value={option}
+                        checked={values.preferredContact === option}
+                        onChange={() => setField("preferredContact", option)}
+                        className="h-4 w-4 accent-brand"
+                      />
+                      {CONTACT_LABEL[option]}
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            </div>
+          </>
+        )}
+
+        <div className="sm:col-span-2">
+          <Field
             id={fieldId("damageDescription")}
-            name="damageDescription"
-            rows={isHero ? 2 : 4}
-            className={`input resize-y ${isHero ? "min-h-[4.5rem]" : "min-h-[6.5rem]"}`}
-            value={values.damageDescription}
-            onChange={(e) =>
-              setValues((v) => ({ ...v, damageDescription: e.target.value }))
-            }
-          />
-        </Field>
+            errorId={errorId("damageDescription")}
+            label="Brief description of damage"
+            error={errors.damageDescription}
+          >
+            <textarea
+              id={fieldId("damageDescription")}
+              name="damageDescription"
+              rows={isHero ? 2 : 4}
+              className={`input resize-y ${isHero ? "min-h-[4.5rem]" : "min-h-[6.5rem]"}`}
+              value={values.damageDescription}
+              onChange={(e) => setField("damageDescription", e.target.value)}
+            />
+          </Field>
+        </div>
       </div>
 
-      <div className="mt-3">
+      <div className="mt-4">
         <label className="flex items-start gap-3 text-xs leading-relaxed text-ink sm:text-sm">
           <input
             id={fieldId("consent")}
@@ -296,7 +397,7 @@ export function InspectionForm({
             checked={values.consent}
             aria-invalid={errors.consent ? true : undefined}
             aria-describedby={errors.consent ? errorId("consent") : undefined}
-            onChange={(e) => setValues((v) => ({ ...v, consent: e.target.checked }))}
+            onChange={(e) => setField("consent", e.target.checked)}
             className="mt-1 h-4 w-4 shrink-0 accent-brand"
           />
           <span>
@@ -313,7 +414,7 @@ export function InspectionForm({
 
       <button
         type="submit"
-        className="btn-primary mt-4 min-h-12 w-full disabled:opacity-70"
+        className="btn-primary mt-5 min-h-12 w-full disabled:opacity-70"
         disabled={pending}
       >
         {pending ? "Sending…" : "Request My Free Inspection"}
@@ -322,42 +423,53 @@ export function InspectionForm({
   );
 }
 
+const STEPS = [
+  "Free, often same-day inspection",
+  "Honest, insurance-ready estimate",
+  "We work directly with your adjuster",
+];
+
 export function LeadForm() {
   return (
-    <section className="bg-white py-16 sm:py-20" aria-labelledby="form-heading">
-      <div className="container-page grid items-start gap-10 lg:grid-cols-[1fr_1.15fr]">
-        <div>
+    <section className="bg-surface py-16 sm:py-20" aria-labelledby="form-heading">
+      <div className="container-page">
+        <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-medium uppercase tracking-[0.18em] text-brand-dark">
             Free inspection
           </p>
-          <h2 id="form-heading" className="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+          <h2
+            id="form-heading"
+            className="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl"
+          >
             Request your free damage inspection
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-muted">
-            Tell us where the property is and how to reach you. We’ll follow up{" "}
+            Tell us about the property and how to reach you. We’ll follow up{" "}
             {SITE.responsePromise} — or call{" "}
             <PhoneLink location="form_intro" className="font-semibold text-brand-dark underline">
               {SITE.phoneDisplay}
             </PhoneLink>{" "}
             if you’d rather talk now.
           </p>
-          <ul className="mt-6 space-y-2 text-ink">
-            <li className="flex gap-2">
-              <span className="font-bold text-brand-dark">1.</span>
-              Free, often same-day inspection
-            </li>
-            <li className="flex gap-2">
-              <span className="font-bold text-brand-dark">2.</span>
-              Honest, insurance-ready estimate
-            </li>
-            <li className="flex gap-2">
-              <span className="font-bold text-brand-dark">3.</span>
-              We work directly with your adjuster
-            </li>
-          </ul>
         </div>
 
-        <InspectionForm variant="section" location="form" />
+        <ol className="mx-auto mt-8 grid max-w-3xl gap-3 sm:grid-cols-3">
+          {STEPS.map((step, index) => (
+            <li
+              key={step}
+              className="flex items-start gap-3 rounded-xl border border-line bg-white px-4 py-3 text-left text-sm text-ink"
+            >
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-bold text-white">
+                {index + 1}
+              </span>
+              <span className="pt-0.5 leading-snug">{step}</span>
+            </li>
+          ))}
+        </ol>
+
+        <div className="mx-auto mt-10 max-w-3xl">
+          <InspectionForm variant="section" location="form" />
+        </div>
       </div>
     </section>
   );
