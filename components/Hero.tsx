@@ -53,7 +53,7 @@ export function Hero() {
             </strong>
             . Get a{" "}
             <strong className="font-semibold text-white">free, often same-day inspection</strong>
-            {" "}in Lakewood, Aurora, and Littleton — we work directly with your adjuster.
+            {" "}in Denver and surrounding areas — we work directly with your adjuster.
           </p>
           <div className="mt-5">
             <PhoneLink location="hero" className="btn-primary min-h-11 px-5">

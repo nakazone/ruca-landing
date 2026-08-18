@@ -1,4 +1,4 @@
-import { FAQS, SITE } from "@/lib/site";
+import { FAQS, SERVICE_CITIES, SITE } from "@/lib/site";
 
 export function JsonLd() {
   const business = {
@@ -9,13 +9,20 @@ export function JsonLd() {
     telephone: SITE.phoneHref.replace("tel:", ""),
     image: `${SITE.url}/logo-white.png`,
     description:
-      "Roofing contractor serving Lakewood, Aurora, and Littleton, Colorado. Free storm and hail damage inspections, insurance-claim support, and code-compliant repairs.",
-    areaServed: SITE.serviceCities.map((city) => ({
-      "@type": "City",
-      name: `${city}, Colorado`,
-    })),
+      "Roofing contractor serving Denver and surrounding areas. Free storm and hail damage inspections, insurance-claim support, and code-compliant repairs across the Denver metro.",
+    areaServed: [
+      {
+        "@type": "AdministrativeArea",
+        name: "Denver metropolitan area, Colorado",
+      },
+      ...SERVICE_CITIES.map((city) => ({
+        "@type": "City",
+        name: `${city}, Colorado`,
+      })),
+    ],
     address: {
       "@type": "PostalAddress",
+      addressLocality: "Denver",
       addressRegion: SITE.address.region,
       addressCountry: SITE.address.country,
     },

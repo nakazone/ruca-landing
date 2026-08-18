@@ -35,7 +35,7 @@ export function Footer() {
             {SITE.phoneDisplay}
           </PhoneLink>
           <p className="mt-3 text-sm text-white/75">
-            Serving {SITE.serviceAreaLabel} {SITE.surroundingLabel}.
+            Serving {SITE.serviceAreaLabel}.
           </p>
           <p className="mt-2 text-sm text-white/50">
             Mailing address: [Add street address], [Add city], CO [Add ZIP]

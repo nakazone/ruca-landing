@@ -41,9 +41,8 @@ export const SITE = {
   phoneHref: process.env.NEXT_PUBLIC_PHONE_HREF?.trim() || "tel:+17209276697",
   url: resolveSiteUrl(),
   existingSite: "https://www.rucaconsulting.com/",
-  serviceCities: ["Lakewood", "Aurora", "Littleton"] as const,
-  serviceAreaLabel: "Lakewood, Aurora, and Littleton, Colorado",
-  surroundingLabel: "and surrounding communities",
+  serviceAreaLabel: "Denver and surrounding areas",
+  surroundingLabel: "across the Denver metro",
   hailAlleyStormsPerYear: "7–9",
   experienceYears: 30,
   reputationYears: 10,
@@ -70,6 +69,44 @@ export const SITE = {
   /** OPEN ITEM — e.g. [Add license #] */
   license: "",
 } as const;
+
+/** Nearby cities listed for local SEO — Denver metro and adjacent communities. */
+export const SERVICE_CITIES = [
+  "Denver",
+  "Aurora",
+  "Lakewood",
+  "Littleton",
+  "Arvada",
+  "Westminster",
+  "Thornton",
+  "Centennial",
+  "Boulder",
+  "Broomfield",
+  "Commerce City",
+  "Englewood",
+  "Greenwood Village",
+  "Highlands Ranch",
+  "Parker",
+  "Castle Rock",
+  "Golden",
+  "Wheat Ridge",
+  "Northglenn",
+  "Brighton",
+  "Lone Tree",
+  "Castle Pines",
+  "Louisville",
+  "Lafayette",
+  "Superior",
+  "Edgewater",
+  "Sheridan",
+  "Federal Heights",
+  "Cherry Hills Village",
+  "Morrison",
+  "Evergreen",
+  "Conifer",
+  "Ken Caryl",
+  "Columbine",
+] as const;
 
 export const TRUST_ITEMS = [
   "30+ Years Combined Experience",
@@ -135,7 +172,7 @@ export const FAQS: { question: string; answer: string }[] = [
   {
     question: "Which areas does RUCA serve?",
     answer:
-      "We serve Lakewood, Aurora, and Littleton, Colorado, plus surrounding communities in the greater Denver area — including Colorado’s Hail Alley, which sees roughly 7–9 hailstorms per year.",
+      "We serve Denver and surrounding areas across the Front Range — including Aurora, Lakewood, Littleton, Arvada, Westminster, Thornton, Centennial, Boulder, Highlands Ranch, Parker, Castle Rock, and nearby communities. This region sits in Colorado’s Hail Alley, which sees roughly 7–9 hailstorms per year.",
   },
   {
     question: "Do you only work with homeowners?",

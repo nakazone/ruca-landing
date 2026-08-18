@@ -26,7 +26,8 @@ Edit `lib/site.ts`:
 | --- | --- |
 | Phone number (display) | `SITE.phoneDisplay` |
 | Phone `tel:` link / CallRail number | `NEXT_PUBLIC_PHONE_HREF` or `SITE.phoneHref` |
-| Service area cities | `SITE.serviceCities` |
+| Service area cities | `SERVICE_CITIES` in `lib/site.ts` |
+| Service area label | `SITE.serviceAreaLabel` |
 | FAQ copy (also feeds JSON-LD) | `FAQS` |
 | Claims process steps | `PROCESS_STEPS` |
 

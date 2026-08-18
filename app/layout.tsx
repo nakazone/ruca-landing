@@ -12,9 +12,9 @@ const roboto = Roboto({
   variable: "--font-sans",
 });
 
-const title = "Insurance Claim Roof Repair in Lakewood, Aurora & Littleton | RUCA";
+const title = "Insurance Claim Roof Repair in Denver and Surrounding Areas | RUCA";
 const description =
-  "Storm or hail damage? RUCA Consulting & Construction handles your insurance claim and repairs your roof. Free, often same-day inspections in Lakewood, Aurora, and Littleton, CO. Call 720-927-6697.";
+  "Storm or hail damage? RUCA Consulting & Construction handles your insurance claim and repairs your roof. Free, often same-day inspections in Denver and surrounding areas — Aurora, Lakewood, Littleton, Arvada, Thornton, Highlands Ranch, Parker, Castle Rock, and more. Call 720-927-6697.";
 
 function metadataBase() {
   try {
@@ -50,6 +50,17 @@ export const metadata: Metadata = {
     description,
   },
   robots: { index: true, follow: true },
+  keywords: [
+    "Denver roof insurance claim",
+    "hail damage Denver",
+    "roof repair Aurora",
+    "roofing Lakewood",
+    "Littleton hail damage",
+    "Arvada roof inspection",
+    "Highlands Ranch roofing",
+    "Parker roof replacement",
+    "Castle Rock storm damage",
+  ],
   alternates: { canonical: "/" },
 };
 
