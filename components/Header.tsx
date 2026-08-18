@@ -14,7 +14,7 @@ const NAV = [
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 bg-header text-white shadow-md">
+    <header className="fixed inset-x-0 top-0 z-50 bg-header/90 text-white shadow-md backdrop-blur-sm">
       <div className="container-page flex h-[var(--header-h)] items-center justify-between gap-4">
         <a
           href="#top"
