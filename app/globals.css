@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  OPEN ITEM — confirm brand tokens with the client before launch.
+  Values below were pulled from the live site (rucaconsulting.com) on 2026-08-18:
+    CTA purple  #9747FF  (rgb(151, 71, 255))
+    Body ink    #231F20
+    Page wash   #F8F8F8
+  Swap these RGB channel variables only — Tailwind tokens read from them,
+  including opacity modifiers like bg-brand/20.
+*/
+:root {
+  --color-brand: 151 71 255;
+  --color-brand-dark: 122 46 230;
+  --color-brand-light: 181 122 255;
+  --color-ink: 35 31 32;
+  --color-muted: 92 87 88;
+  --color-surface: 248 248 248;
+  --color-header: 22 20 23;
+  --color-line: 228 224 225;
+  --header-h: 4.25rem;
+  --mobile-bar-h: 4.5rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  color: rgb(var(--color-ink));
+  background: rgb(var(--color-surface));
+  font-family: var(--font-sans), Roboto, Arial, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--color-brand));
+  outline-offset: 3px;
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-content px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-anchor {
+    scroll-margin-top: calc(var(--header-h) + 0.75rem);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-center text-base font-medium transition;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand text-white shadow-cta hover:bg-brand-dark;
+  }
+
+  .btn-secondary {
+    @apply btn border-2 border-white bg-transparent text-white hover:bg-white hover:text-ink;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-brand bg-white text-brand-dark hover:bg-brand hover:text-white;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-line bg-white px-3 py-2.5 text-ink shadow-sm placeholder:text-slate-400;
+  }
+
+  .input:focus {
+    @apply border-brand outline-none ring-2 ring-brand/30;
+  }
+
+  .input[aria-invalid="true"] {
+    @apply border-red-700 ring-2 ring-red-700/20;
+  }
+}
