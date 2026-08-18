@@ -16,8 +16,16 @@ const title = "Insurance Claim Roof Repair in Lakewood, Aurora & Littleton | RUC
 const description =
   "Storm or hail damage? RUCA Consulting & Construction handles your insurance claim and repairs your roof. Free, often same-day inspections in Lakewood, Aurora, and Littleton, CO. Call 720-927-6697.";
 
+function metadataBase() {
+  try {
+    return new URL(SITE.url);
+  } catch {
+    return new URL("https://www.rucaconsulting.com");
+  }
+}
+
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE.url),
+  metadataBase: metadataBase(),
   title,
   description,
   openGraph: {

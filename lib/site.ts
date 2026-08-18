@@ -10,6 +10,24 @@
  * - Official SVG logo + confirmation of brand hex values
  */
 
+function resolveSiteUrl() {
+  const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (fromEnv) return fromEnv.replace(/\/$/, "");
+
+  const vercelHost = (
+    process.env.VERCEL_PROJECT_PRODUCTION_URL ||
+    process.env.VERCEL_URL ||
+    ""
+  ).trim();
+  if (vercelHost) {
+    return vercelHost.startsWith("http")
+      ? vercelHost.replace(/\/$/, "")
+      : `https://${vercelHost}`;
+  }
+
+  return "https://www.rucaconsulting.com";
+}
+
 export const SITE = {
   name: "RUCA Consulting & Construction",
   shortName: "RUCA",
@@ -20,8 +38,8 @@ export const SITE = {
    * Swap NEXT_PUBLIC_PHONE_HREF for a CallRail (or similar) tracking number
    * without changing any component code.
    */
-  phoneHref: process.env.NEXT_PUBLIC_PHONE_HREF ?? "tel:+17209276697",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.rucaconsulting.com",
+  phoneHref: process.env.NEXT_PUBLIC_PHONE_HREF?.trim() || "tel:+17209276697",
+  url: resolveSiteUrl(),
   existingSite: "https://www.rucaconsulting.com/",
   serviceCities: ["Lakewood", "Aurora", "Littleton"] as const,
   serviceAreaLabel: "Lakewood, Aurora, and Littleton, Colorado",
